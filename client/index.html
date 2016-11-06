@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Locate</title>
+  <meta name="viewport" content="width=device-width">
+<!--  <link href="locate.css" rel="stylesheet" type="text/css">-->
+</head> 
+<body>
+
+
+
+<!--<form action="http://locate.wdickerson.com/export" method="post">-->
+
+  <label for="lat-input">Lat:</label>
+  <input type='text' id='lat-input' name='lat' readonly="readonly" />
+  <br />
+  <label for="lon-input">Lon:</label>
+  <input type='text' id='lon-input' name='lon' readonly="readonly" />
+  <br />
+  <label for="acc-input">Accuracy:</label>
+  <input type='text' id='acc-input' name='acc' readonly="readonly" />
+  <br />
+  <label for="compass-input">Compass:</label>
+  <input type='text' id='compass-input' name='compass' readonly="readonly" />
+  <br />
+  <label for="alpha-input">Alpha:</label>
+  <input type='text' id='alpha-input' name='alpha' readonly="readonly" />
+  <br />
+  <label for="beta-input">Beta:</label>
+  <input type='text' id='beta-input' name='beta' readonly="readonly" />
+  <br />
+  <label for="gamma-input">Gamma:</label>
+  <input type='text' id='gamma-input' name='gamma' readonly="readonly" />
+  <br />
+  <button id='rec-button'>Record</button>
+  
+<!--</form>-->
+
+<form action="export" method="post">
+  <input type='hidden' id='data-input' name='data' readonly="readonly" />
+  <br />
+  <input type='submit' value='Download' class="btn btn-success" />
+</form>
+
+
+<script src="locate.js"></script>
+</body>
+</html>

@@ -1,0 +1,30 @@
+{
+  "name": "locate",
+  "version": "0.0.5",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wdickerson/locate.git"
+  },
+  "keywords": [
+    "locate",
+    "pattern"
+  ],
+  "author": "William Dickerson",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/wdickerson/locate/issues"
+  },
+  "homepage": "https://github.com/wdickerson/locate#readme",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "d3": "^4.3.0",
+    "express": "^4.14.0",
+    "moment": "^2.15.1"
+  }
+}
