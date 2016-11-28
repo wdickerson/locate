@@ -1,3 +1,4 @@
+### Main, daytime
 Evaluating image category classifier for 8 categories.
 -------------------------------------------------------
 
@@ -31,7 +32,7 @@ SW_MAIN_N    | 0.00        0.00        0.25        0.00        0.00        0.25 
 
 * Average Accuracy is 0.75.
 
-
+### Main, nighttime
 Evaluating image category classifier for 8 categories.
 -------------------------------------------------------
 
@@ -65,7 +66,7 @@ SW_MAIN_N    | 0.25        0.00        0.00        0.00        0.00        0.00 
 
 * Average Accuracy is 0.53.
 
-
+### Self, daytime
 Evaluating image category classifier for 8 categories.
 -------------------------------------------------------
 
@@ -99,7 +100,7 @@ SW_SELF_N    | 0.00        0.00        0.00        0.00        0.00        0.00 
 
 * Average Accuracy is 1.00.
 
-
+### Self, nighttime
 Evaluating image category classifier for 8 categories.
 -------------------------------------------------------
 
