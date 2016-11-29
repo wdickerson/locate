@@ -1,11 +1,13 @@
-myMainTestSet = mainNightTestSet;
-mySelfTestSet = selfNightTestSet;
+myMainTestSet = mainTestSet;
+mySelfTestSet = selfTestSet;
 myLabels = string(mainClassifier.Labels);
 
 l = length(myMainTestSet.Files);
 c = length(mainClassifier.Labels);
-correct = zeros(l, 1);
-guess = zeros(l, 1);
+sumCorrect = zeros(l, 1);
+maxCorrect = zeros(l, 1);
+sumGuess = zeros(l, 1);
+maxGuess = zeros(l, 1);
 
 mainGuess = zeros(l, 1);
 selfGuess = zeros(l, 1);
@@ -20,21 +22,44 @@ for i=1:l
     selfScores(i,:) = selfS;
 end
 
-combinedScores = mainScores + selfScores;
-manualConfusionMatrix = zeros(c,c);
-for k=1:length(combinedScores)
-    [myMax, myIndex] = max(combinedScores(k,:));
-    guess(k) = myIndex;
-    if strcmp(string(mainClassifier.Labels(guess(k))), string(myMainTestSet.Labels(k)))
-        correct(k) = 1;
+sumScores = mainScores + selfScores;
+sumConfusionMatrix = zeros(c,c);
+for k=1:length(sumScores)
+    [myMax, myIndex] = max(sumScores(k,:));
+    sumGuess(k) = myIndex;
+    if strcmp(string(mainClassifier.Labels(sumGuess(k))), string(myMainTestSet.Labels(k)))
+        sumCorrect(k) = 1;
     end
     q = find(myLabels == string(myMainTestSet.Labels(k)));
-    manualConfusionMatrix(q, guess(k)) = manualConfusionMatrix(q, guess(k)) + 1;
+    sumConfusionMatrix(q, sumGuess(k)) = sumConfusionMatrix(q, sumGuess(k)) + 1;
 end
 
-labelCount = countEachLabel(myMainTestSet);
-for k=1:length(manualConfusionMatrix)
-    manualConfusionMatrix(k,:) = manualConfusionMatrix(k,:) ./ labelCount.Count(k);
+maxScores = mainScores;
+[countR, countC] = size(maxScores);
+for r=1:countR
+    for c=1:countC
+        maxScores(r,c)=max(mainScores(r,c),selfScores(r,c));
+    end
 end
-manualConfusionMatrix
-percentCorrect = sum(correct)/length(correct)
+
+maxConfusionMatrix = zeros(c,c);
+for k=1:length(maxScores)
+    [myMax, myIndex] = max(maxScores(k,:));
+    maxGuess(k) = myIndex;
+    if strcmp(string(mainClassifier.Labels(maxGuess(k))), string(myMainTestSet.Labels(k)))
+        maxCorrect(k) = 1;
+    end
+    q = find(myLabels == string(myMainTestSet.Labels(k)));
+    maxConfusionMatrix(q, maxGuess(k)) = maxConfusionMatrix(q, maxGuess(k)) + 1;
+end
+
+
+labelCount = countEachLabel(myMainTestSet);
+for k=1:length(sumConfusionMatrix)
+    sumConfusionMatrix(k,:) = sumConfusionMatrix(k,:) ./ labelCount.Count(k);
+    maxConfusionMatrix(k,:) = maxConfusionMatrix(k,:) ./ labelCount.Count(k);
+end
+sumConfusionMatrix
+sumPercent = sum(sumCorrect)/length(sumCorrect)
+maxConfusionMatrix
+maxPercent = sum(maxCorrect)/length(maxCorrect)
