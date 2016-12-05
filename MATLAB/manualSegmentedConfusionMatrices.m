@@ -1,11 +1,13 @@
-% myMainTestSet = mainTestSet;
-% mySelfTestSet = selfTestSet;
-myMainTestSet = mainNightTestSet;
-mySelfTestSet = selfNightTestSet;
-myLabels = string(mainClassifier.Labels);
+% myMainTestSet = mainTestSet12;
+% mySelfTestSet = selfTestSet12;
+myMainTestSet = mainNightTestSet12;
+mySelfTestSet = selfNightTestSet12;
+myMainClassifier = mainClassifier12;
+mySelfClassifier = selfClassifier12;
+myLabels = string(myMainClassifier.Labels);
 
 l = length(myMainTestSet.Files);
-c = length(mainClassifier.Labels);
+c = length(myMainClassifier.Labels);
 sumCorrect = zeros(l, 1);
 maxCorrect = zeros(l, 1);
 sumGuess = zeros(l, 1);
@@ -16,8 +18,8 @@ selfGuess = zeros(l, 1);
 mainScores = zeros(l, c);
 selfScores = zeros(l, c);
 for i=1:l
-    [mainG, mainS] = mainClassifier.predict(readimage(myMainTestSet,i));
-    [selfG, selfS] = selfClassifier.predict(readimage(mySelfTestSet,i));
+    [mainG, mainS] = myMainClassifier.predict(readimage(myMainTestSet,i));
+    [selfG, selfS] = mySelfClassifier.predict(readimage(mySelfTestSet,i));
     mainGuess(i) = mainG;
     mainScores(i,:) = mainS;
     selfGuess(i) = selfG;
@@ -29,7 +31,7 @@ sumConfusionMatrix = zeros(c,c);
 for k=1:length(sumScores)
     [myMax, myIndex] = max(sumScores(k,:));
     sumGuess(k) = myIndex;
-    if strcmp(string(mainClassifier.Labels(sumGuess(k))), string(myMainTestSet.Labels(k)))
+    if strcmp(string(myMainClassifier.Labels(sumGuess(k))), string(myMainTestSet.Labels(k)))
         sumCorrect(k) = 1;
     end
     q = find(myLabels == string(myMainTestSet.Labels(k)));
@@ -48,7 +50,7 @@ maxConfusionMatrix = zeros(c,c);
 for k=1:length(maxScores)
     [myMax, myIndex] = max(maxScores(k,:));
     maxGuess(k) = myIndex;
-    if strcmp(string(mainClassifier.Labels(maxGuess(k))), string(myMainTestSet.Labels(k)))
+    if strcmp(string(myMainClassifier.Labels(maxGuess(k))), string(myMainTestSet.Labels(k)))
         maxCorrect(k) = 1;
     end
     q = find(myLabels == string(myMainTestSet.Labels(k)));
